@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+/* MoMo × Minimal Modern — Design Tokens */
+@theme {
+  /* Primary */
+  --color-momo-deep:   #A50064;
+  --color-momo-bright: #D82D8B;
+  --color-momo-light:  #FCE4F3;
+
+  /* Neutral */
+  --color-ink:         #1A1A1A;
+  --color-ink-soft:    #4A4A4A;
+  --color-line:        #E8E8E8;
+  --color-surface:     #FAFAFA;
+
+  /* Brand */
+  --color-tiktok:      #010101;
+  --color-threads:     #000000;
+
+  /* Semantic page tokens */
+  --color-background:  #FFFFFF;
+  --color-foreground:  #1A1A1A;
+
+  /* Font */
+  --font-sans: var(--font-be-vietnam-pro), "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #1A1A1A;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+::selection {
+  background-color: #FCE4F3;
+  color: #A50064;
+}
+
+/* ── Print / CV ─────────────────────────────────────────── */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm 15mm;
+  }
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .cv-paper {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+  .cv-page-break {
+    break-before: page;
+  }
+  .cv-no-break {
+    break-inside: avoid;
+  }
+}

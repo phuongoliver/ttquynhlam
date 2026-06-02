@@ -1,0 +1,254 @@
+{
+  "personal": {
+    "name": "Trịnh Thanh Quỳnh Lam",
+    "penNames": ["Quỳnh Lam", "Đông Xanh", "Chung Lan"],
+    "major": "Báo chí — Chương trình Chất lượng cao",
+    "school": "Trường ĐH KHXH&NV, ĐHQG-HCM",
+    "schoolShort": "USSH – VNUHCM",
+    "gpa": "8.61/10",
+    "gpaSemesters": 5,
+    "ielts": "6.0 (Overall)",
+    "location": "TP. Hồ Chí Minh",
+    "email": "PLACEHOLDER_EMAIL",
+    "phone": "PLACEHOLDER_PHONE",
+    "linkedin": "PLACEHOLDER_LINKEDIN",
+    "github": "PLACEHOLDER_GITHUB",
+    "portfolioUrl": "PLACEHOLDER_VERCEL_URL"
+  },
+  "highlights": [
+    "~2.000 tin/bài chấp bút (2023–nay)",
+    "TikTok top video: 311.4K views",
+    "Threads top post: 212K views",
+    "1 bài đăng Báo Tuổi Trẻ (in + online)",
+    "GPA 8.61 · IELTS 6.0 · MOS Associate"
+  ],
+  "profile": {
+    "vi": "Sinh viên năm cuối ngành Báo chí CLC (ĐH KHXH&NV) với hơn 2 năm viết và sản xuất nội dung cho website trường, báo Tuổi Trẻ, BeeMedic và các kênh TikTok/Threads tự xây. Đã chấp bút ~2.000 tin/bài, có video TikTok đạt 311K views và Threads post chạm 212K views. Đam mê dissect ý tưởng hay, quan sát văn hoá mạng và biến insight thành câu chữ chạm cảm xúc. Sử dụng ChatGPT, Claude, Gemini hàng ngày cho ideation, research và content production.",
+    "en": "Final-year Journalism student (CLC program, USSH – VNUHCM) with 2+ years writing and producing content for UIT's university website, Tuổi Trẻ newspaper, BeeMedic, and self-built TikTok/Threads channels. Author of ~2,000 published articles, with a TikTok video reaching 311K views and a Threads post hitting 212K views. Passionate about dissecting great ideas, tracking internet culture, and turning insight into copy that lands emotionally. Daily user of ChatGPT, Claude, and Gemini for ideation, research, and content production."
+  },
+  "experience": [
+    {
+      "id": "uit",
+      "role_vi": "Cộng tác viên Truyền thông",
+      "role_en": "Media Contributor",
+      "org_vi": "Trường ĐH Công nghệ Thông tin, ĐHQG-HCM",
+      "org_en": "University of Information Technology, VNU-HCM",
+      "period": "03/2024 – nay",
+      "bullets_vi": [
+        "Chấp bút ~2.000 tin/bài trên website trường; đỉnh điểm 925 bài trong năm 2024.",
+        "Viết chuỗi bài chân dung sinh viên ưu tú: tự lên concept, đặt tagline, soạn câu phỏng vấn, drafting đến final edit.",
+        "Biên tập và chuẩn hoá tone & voice cho fanpage Tuyển sinh UIT — cân bằng ngôn ngữ GenZ và chuẩn mực học thuật."
+      ],
+      "bullets_en": [
+        "Authored ~2,000 published articles on the university website; peak output of 925 articles in 2024.",
+        "Self-directed student portrait series: concept, headline, interview questions, drafting through final edit.",
+        "Copy-edited and standardized tone & voice for UIT Admissions fanpage — balancing GenZ language with academic standards."
+      ],
+      "links": [
+        { "label": "Dionysus — Tình bạn kết tinh từ nghiên cứu khoa học", "url": "https://www.uit.edu.vn/dionysus-tinh-ban-ket-tinh-tu-nghien-cuu-khoa-hoc" },
+        { "label": "'Bóng hồng' tài năng ngành KHMT", "url": "https://www.uit.edu.vn/bong-hong-tai-nang-nganh-khoa-hoc-may-tinh" }
+      ]
+    },
+    {
+      "id": "tuoitre",
+      "role_vi": "Cộng tác viên Ban Giáo dục",
+      "role_en": "Education Desk Contributor",
+      "org_vi": "Báo Tuổi Trẻ",
+      "org_en": "Tuổi Trẻ Newspaper",
+      "period": "11/2024",
+      "bullets_vi": [
+        "Tự tác nghiệp, bài được đăng trên cả báo in và báo điện tử Tuổi Trẻ — tờ báo lớn nhất khu vực phía Nam.",
+        "Bài: 'Bất ngờ: học sinh tự tổ chức đêm nhạc toàn sao' — chủ đề GenZ dám mơ lớn, làm lớn."
+      ],
+      "bullets_en": [
+        "Independently reported and published in both print and online editions of Tuổi Trẻ — Vietnam's largest southern newspaper.",
+        "Feature: 'Students Stun with Self-Produced All-Star Concert' — capturing GenZ's ambition to dream and execute big."
+      ],
+      "links": [
+        { "label": "Bài báo điện tử Tuổi Trẻ", "url": "https://tuoitre.vn/bat-ngo-hoc-sinh-tu-to-chuc-dem-nhac-toan-sao-20241128095757422.htm" }
+      ]
+    },
+    {
+      "id": "panorama",
+      "role_vi": "Scriptwriter & Content Creator",
+      "role_en": "Scriptwriter & Content Creator",
+      "org_vi": "TikTok @panorama.pvt — ekip Panorama, CLB Phóng Viên Trẻ USSH",
+      "org_en": "TikTok @panorama.pvt — Panorama Team, USSH Young Journalists Club",
+      "period": "06/2024 – nay",
+      "bullets_vi": [
+        "Đồng sáng lập ekip Panorama: khai thác văn hoá – nghệ thuật – giải trí để sản xuất video ấn tượng.",
+        "Viết kịch bản, edit (CapCut), caption cho 11+ video; tổng >660K views.",
+        "Video viral nhất: 'Ngô Lan Hương + Chi Xê' — 311.4K views, 16.4K likes; 'Cầu vồng lấp lánh' — 161.6K views."
+      ],
+      "bullets_en": [
+        "Co-founded Panorama — a content team covering culture, arts, and entertainment for short-form video.",
+        "Wrote scripts, edited (CapCut), and crafted captions for 11+ videos; combined 660K+ views.",
+        "Top video: 'Ngô Lan Hương + Chi Xê' — 311.4K views, 16.4K likes; 'Cầu vồng lấp lánh' — 161.6K views."
+      ]
+    },
+    {
+      "id": "threads",
+      "role_vi": "Founder & Content Creator",
+      "role_en": "Founder & Content Creator",
+      "org_vi": "Threads @ttqueenlam & @finding20s",
+      "org_en": "Threads @ttqueenlam & @finding20s",
+      "period": "2025 (thử nghiệm)",
+      "bullets_vi": [
+        "Xây 2 tài khoản với 2 angle khác nhau: showbiz/bình đẳng giới vs. UGC nhãn hàng F&B – beauty.",
+        "Post 'Dh Foods Rebranding' — 212K views, 'Giờ tan học TP.HCM' — 131K views, 'Tính năng mới Threads' — 124K views.",
+        "Rèn kỹ năng đọc mạng xã hội, bắt trend nhanh, viết caption chạm insight GenZ."
+      ],
+      "bullets_en": [
+        "Built 2 accounts testing 2 angles: showbiz/gender equality (UGC news) vs. F&B–beauty brand UGC.",
+        "'Dh Foods Rebranding' — 212K views; 'Giờ tan học TP.HCM' — 131K views; 'Tính năng mới Threads' — 124K views.",
+        "Developed skills in social listening, trend identification, and caption writing that resonates with GenZ."
+      ]
+    },
+    {
+      "id": "beemedic",
+      "role_vi": "Content Writer (bút danh Chung Lan)",
+      "role_en": "Content Writer (pen name Chung Lan)",
+      "org_vi": "BeeMedic.vn",
+      "org_en": "BeeMedic.vn",
+      "period": "05/2025 – nay",
+      "bullets_vi": [
+        "Viết 7+ bài về sức khoẻ giới tính, dinh dưỡng — chủ đề nhạy cảm, cần cân bằng khoa học và dễ tiếp cận cho GenZ.",
+        "Rèn khả năng viết tone empathy + headline có hook — chuyển thông tin y khoa khô thành bài đọc được."
+      ],
+      "bullets_en": [
+        "Authored 7+ articles on sexual health and nutrition — sensitive topics requiring balance between clinical accuracy and GenZ readability.",
+        "Developed empathy-first writing tone and hook-driven headlines — translating medical information into engaging reads."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "justice",
+      "title_vi": "Trưởng Ban Nội dung — Mùa tuyển thứ 16 'JUSTice'",
+      "title_en": "Head of Content — 16th Recruitment Season 'JUSTice'",
+      "org": "CLB Phóng Viên Trẻ USSH",
+      "period": "10–11/2024",
+      "desc_vi": "Dẫn dắt ban Nội dung: chốt concept, phân công, soạn văn bản thể lệ, đề thi, kịch bản; làm việc trực tiếp với Ban Giám khảo."
+    },
+    {
+      "id": "inkspire",
+      "title_vi": "BTC Ban Nội dung — Tuần lễ Phóng Viên Trẻ 2024 'INKSPIRE'",
+      "title_en": "Organizing Committee (Content) — INKSPIRE 2024",
+      "org": "CLB Phóng Viên Trẻ USSH",
+      "period": "2024",
+      "desc_vi": "Brainstorm tagline & key message; viết kịch bản khai mạc, talkshow, tập huấn, chung kết."
+    },
+    {
+      "id": "wisteria",
+      "title_vi": "Trưởng Ban Liên lạc — Gala 15 năm CLB 'Wish'teria'",
+      "title_en": "Head of Relations — 15th Anniversary Gala 'Wish'teria'",
+      "org": "CLB Phóng Viên Trẻ USSH",
+      "period": "2025"
+    },
+    {
+      "id": "younique",
+      "title_vi": "BTC Ban Đối ngoại — Talkshow 'YOU'NIQUE' (Thương hiệu cá nhân)",
+      "title_en": "Organizing Committee (External Relations) — 'YOU'NIQUE' Personal Branding Talkshow",
+      "org": "CLB Phóng Viên Trẻ USSH",
+      "period": "2025",
+      "desc_vi": "Lập danh sách nhà tài trợ, soạn mail mẫu, liên hệ và pitch ý tưởng với nhà tài trợ."
+    }
+  ],
+  "signatureWorks": [
+    {
+      "id": "sw1",
+      "title": "Tình yêu Trí tuệ nhân tạo của cậu sinh viên Khoa học Máy tính",
+      "type_vi": "Bài chân dung — UIT",
+      "type_en": "Portrait Feature — UIT",
+      "hook_vi": "Chân dung có góc kể emotion + tech — tự tiếp cận, tự đặt headline.",
+      "hook_en": "An emotion-meets-tech portrait — self-pitched, self-headlined.",
+      "url": "https://www.uit.edu.vn/tinh-yeu-tri-tue-nhan-tao-cau-sinh-vien-khoa-hoc-may-tinh"
+    },
+    {
+      "id": "sw2",
+      "title": "Dionysus — Tình bạn kết tinh từ nghiên cứu khoa học",
+      "type_vi": "Bài chân dung nhóm — UIT",
+      "type_en": "Group Portrait — UIT",
+      "hook_vi": "Dùng metaphor thần thoại đặt tên nhóm sinh viên nghiên cứu — kể chuyện bằng hình ảnh.",
+      "hook_en": "Named a student research group after a Greek myth — storytelling through imagery.",
+      "url": "https://www.uit.edu.vn/dionysus-tinh-ban-ket-tinh-tu-nghien-cuu-khoa-hoc"
+    },
+    {
+      "id": "sw3",
+      "title": "Bất ngờ: học sinh tự tổ chức đêm nhạc toàn sao",
+      "type_vi": "Báo Tuổi Trẻ — In + Online",
+      "type_en": "Tuổi Trẻ Newspaper — Print + Online",
+      "hook_vi": "Bài được đăng báo chính thống lớn nhất phía Nam — tự tác nghiệp.",
+      "hook_en": "Published in Vietnam's largest southern newspaper — fully self-reported.",
+      "url": "https://tuoitre.vn/bat-ngo-hoc-sinh-tu-to-chuc-dem-nhac-toan-sao-20241128095757422.htm"
+    },
+    {
+      "id": "sw4",
+      "title": "Ngô Lan Hương + Chi Xê — TikTok Viral",
+      "type_vi": "Kịch bản + Edit + Caption — TikTok",
+      "type_en": "Script + Edit + Caption — TikTok",
+      "hook_vi": "311.4K views, 16.4K likes — viết kịch bản, dựng video, đặt caption.",
+      "hook_en": "311.4K views, 16.4K likes — script, edit, caption all in-house.",
+      "url": "https://www.tiktok.com/@panorama.pvt/video/7510958733405523208"
+    },
+    {
+      "id": "sw5",
+      "title": "Dh Foods Rebranding — Threads Viral",
+      "type_vi": "UGC Case Study — Threads @finding20s",
+      "type_en": "UGC Brand Case Study — Threads @finding20s",
+      "hook_vi": "212K views — phân tích rebranding nhãn hàng, angle người tiêu dùng GenZ.",
+      "hook_en": "212K views — brand rebranding analysis from a GenZ consumer angle.",
+      "url": "https://www.threads.com/@finding20s/post/DP_L9MZk9na"
+    },
+    {
+      "id": "sw6",
+      "title": "'Bóng hồng' tài năng ngành Khoa học Máy tính",
+      "type_vi": "Bài chân dung — UIT",
+      "type_en": "Portrait Feature — UIT",
+      "hook_vi": "Tự tiếp cận nhân vật, tự đặt headline — mô tả người phụ nữ trong ngành STEM.",
+      "hook_en": "Self-pitched, self-headlined — portraying a woman thriving in a male-dominated STEM field.",
+      "url": "https://www.uit.edu.vn/bong-hong-tai-nang-nganh-khoa-hoc-may-tinh"
+    }
+  ],
+  "skills": {
+    "copywriting": [
+      "Tagline, headline, social caption, kịch bản video ngắn, storyboard",
+      "Long-form journalism: chân dung, phỏng vấn, tường thuật sự kiện",
+      "Biên tập, chuẩn hoá tone & voice cho fanpage và website",
+      "Viết theo nhiều angle: GenZ bắt trend · học thuật · UGC nhãn hàng"
+    ],
+    "ai": [
+      "ChatGPT, Claude, Gemini — dùng hàng ngày: research, brainstorm, drafting, polishing",
+      "Prompt engineering cơ bản: phân vai, đưa brief, yêu cầu tone-of-voice cụ thể",
+      "Dùng AI để dissect vì sao một headline/TVC hay — rút insight cho project tiếp theo",
+      "Kết hợp AI với CapCut/Canva để tăng tốc sản xuất (script → caption → thumbnail)"
+    ],
+    "tools": [
+      "Video editing: CapCut (intermediate)",
+      "Design: Canva (intermediate)",
+      "MS Office: MOS Associate — Word, Excel, PowerPoint 2019",
+      "Social platforms: TikTok, Threads, Facebook, Instagram — hiểu thuật toán và hành vi người xem"
+    ],
+    "languages": [
+      "Tiếng Việt — bản ngữ",
+      "Tiếng Anh — IELTS 6.0 (Overall)",
+      "Tiếng Trung — đang học"
+    ]
+  },
+  "education": {
+    "school_vi": "Trường ĐH Khoa học Xã hội và Nhân văn — ĐHQG-HCM",
+    "school_en": "University of Social Sciences and Humanities — VNUHCM",
+    "major_vi": "Ngành Báo chí — Chương trình Chất lượng cao, Khoa Báo chí và Truyền thông",
+    "major_en": "Journalism — High-Quality Program, Faculty of Journalism and Communication",
+    "period": "2023 – 2027 (dự kiến)",
+    "gpa": "8.61/10",
+    "certs": ["IELTS 6.0 Overall", "MOS Associate — Word, Excel, PowerPoint 2019"]
+  },
+  "interests": [
+    "Lưu mọi tagline / TVC / campaign đáng nhớ vào ghi chú riêng để mổ xẻ vì sao nó hay",
+    "Viết caption nhiều hơn nhắn tin — có thói quen quan sát, phản xạ ngôn từ",
+    "Hàng trăm note ý tưởng trong điện thoại, cập nhật hàng tuần",
+    "Quan tâm cảm xúc con người, song tò mò với AI, fintech và văn hoá internet",
+    "Thích môi trường fast-paced, lún tay vào thử nghiệm cái mới"
+  ]
+}
