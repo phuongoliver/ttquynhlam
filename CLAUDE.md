@@ -26,10 +26,12 @@ Người cuối cùng mở portfolio này là **nhà tuyển dụng MoMo** và *
 | Font | **Be Vietnam Pro** (Google Fonts) | Đẹp tiếng Việt, modern, có đủ weights |
 | Animation | **Framer Motion** | Fade-in scroll nhẹ, không lạm dụng |
 | Charts | **Recharts** | Visualize stat kênh, lightweight |
-| Data layer | JSON files trong `/data/` | `content.json` (CV) + `stats.json` (kênh). Sửa file → commit → auto-redeploy |
+| CMS / Data layer | **Sanity v3** | Lam chỉnh sửa MỌI content (CV, bio, bullets, stats, works...) qua Sanity Studio tại `/studio` — giao diện như Notion, không thấy JSON, không cần code. Free tier đủ dùng. |
+| Sanity Studio | Embedded trong Next.js tại `app/studio/[[...tool]]/page.tsx` | Không cần deploy riêng, Lam vào `quynhlam.vercel.app/studio` là xài được |
+| Auth Studio | Sanity built-in (Google/GitHub login) | Lam tạo Sanity account 1 lần, sau đó login bằng Google — không cần nhớ mật khẩu thêm |
 | Threads API | `/api/threads-sync` (Next.js Route Handler) | Proxy giữ token phía server, không lộ secret ra client |
 | Deploy | **Vercel** (GitHub integration) | Push → auto-deploy, zero config với Next.js |
-| PDF CV | `@react-pdf/renderer` hoặc export HTML → print | TBD khi làm CV |
+| PDF CV | HTML + `@media print` → Chrome print to PDF | Đơn giản nhất, không token, không dependency nặng |
 
 ---
 
@@ -81,58 +83,76 @@ Stat number:     Be Vietnam Pro 700, 40px, color: --momo-deep
 
 ```
 quynhlam-portfolio/
-├── CLAUDE.md                  ← file này (luôn đọc trước)
-├── .env.local                 ← Threads token (không commit, đã .gitignore)
-├── .env.example               ← template env var cho người clone
+├── CLAUDE.md                        ← file này (luôn đọc trước)
+├── .env.local                       ← secrets (không commit)
+├── .env.example
 ├── next.config.js
 ├── tailwind.config.js
+├── sanity.config.ts                 ← Sanity Studio config (project ID, dataset, schemas)
+├── sanity.cli.ts                    ← CLI config cho `sanity deploy`
 ├── package.json
 │
 ├── data/
-│   ├── content.json           ← toàn bộ CV content (personal info, experience, skills...)
-│   └── stats.json             ← số liệu kênh TikTok + Threads (nguồn cho dashboard)
+│   ├── content.json                 ← seed data (dùng 1 lần để import vào Sanity)
+│   └── stats.json                   ← seed data (dùng 1 lần để import vào Sanity)
+│
+├── sanity/
+│   ├── schemas/
+│   │   ├── index.ts                 ← export tất cả schemas
+│   │   ├── siteContent.ts           ← schema: personal info, bio, profile
+│   │   ├── experience.ts            ← schema: mảng experience entries
+│   │   ├── signatureWork.ts         ← schema: mảng portfolio works
+│   │   ├── skills.ts                ← schema: skills groups
+│   │   ├── education.ts             ← schema: education + certs
+│   │   └── channelStats.ts          ← schema: TikTok + Threads + UIT stats
+│   ├── lib/
+│   │   ├── client.ts                ← Sanity client (browser-safe, read-only token)
+│   │   ├── queries.ts               ← GROQ queries cho từng section
+│   │   └── image.ts                 ← urlFor() helper cho ảnh
+│   └── components/                  ← custom Studio components nếu cần
+│
+├── cv/
+│   ├── cv-vn.html
+│   └── cv-en.html
 │
 ├── public/
 │   ├── cv/
 │   │   ├── CV_QuynhLam_VN.pdf
 │   │   └── CV_QuynhLam_EN.pdf
-│   ├── og-image.jpg           ← Open Graph image (1200×630)
+│   ├── og-image.jpg
 │   └── favicon.ico
 │
 ├── app/
-│   ├── layout.tsx             ← font, metadata, global styles
-│   ├── page.tsx               ← single-page portfolio (tất cả sections)
+│   ├── layout.tsx
+│   ├── page.tsx                     ← portfolio (fetch data từ Sanity)
 │   ├── globals.css
+│   │
+│   ├── studio/
+│   │   └── [[...tool]]/
+│   │       └── page.tsx             ← Sanity Studio embedded (Lam vào /studio)
 │   │
 │   └── api/
 │       └── threads-sync/
-│           └── route.ts       ← Threads API proxy (serverless)
+│           └── route.ts
 │
 ├── components/
 │   ├── sections/
 │   │   ├── Hero.tsx
-│   │   ├── StatsBoard.tsx     ← dashboard chính (có Edit mode)
+│   │   ├── StatsBoard.tsx
 │   │   ├── SelectedWorks.tsx
 │   │   ├── Channels.tsx
 │   │   ├── Experience.tsx
 │   │   ├── Skills.tsx
 │   │   └── Footer.tsx
 │   │
-│   ├── ui/
-│   │   ├── StatCard.tsx       ← card số liệu (view, like, bài)
-│   │   ├── WorkCard.tsx       ← portfolio work card
-│   │   ├── ChannelTable.tsx   ← bảng top posts của mỗi kênh
-│   │   ├── EditableNumber.tsx ← inline edit cho dashboard Tầng 1
-│   │   └── SyncButton.tsx     ← nút "Sync from Threads" Tầng 2
-│   │
-│   └── layout/
-│       ├── Navbar.tsx
-│       └── SectionWrapper.tsx ← Framer Motion fade-in wrapper
+│   └── ui/
+│       ├── StatCard.tsx
+│       ├── WorkCard.tsx
+│       └── ChannelTable.tsx
 │
 └── lib/
-    ├── threads.ts             ← Threads API client (fetch + token refresh)
-    ├── stats-store.ts         ← localStorage read/write helper
-    └── utils.ts               ← format số (311K → "311.4K"), dates...
+    ├── threads.ts
+    └── utils.ts
 ```
 
 ---
@@ -512,18 +532,7 @@ Phía dưới: Tabs hoặc Accordion theo kênh:
 - **Threads @finding20s** — top posts table
 - **UIT Articles** — line/bar chart bài theo năm (2023→2024→2025→2026 YTD)
 
-**Edit Mode (Tầng 1)**:
-- Nút "Chỉnh sửa" (hidden đến khi hover, hoặc password đơn giản như `?edit=true` trong URL)
-- Khi active: các số liệu trở thành `<input>`, có thể sửa trực tiếp
-- Nút "Lưu" → persist vào `localStorage` key `qlam_stats`
-- Nút "Export JSON" → download file `stats-[date].json` để backup/commit
-- Nút "Import JSON" → upload file → ghi đè `localStorage`
-- Note trong UI: "Dữ liệu lưu trong trình duyệt. Export → commit vào repo để mọi người xem được."
-
-**Sync Button (Tầng 2 — Threads API)**:
-- Nút "Đồng bộ từ Threads API" chỉ hiện trong Edit Mode
-- Gọi `/api/threads-sync` → trả về số liệu mới nhất từ Threads Insights API
-- Merge vào data hiện tại → hiện diff trước khi lưu
+**Edit Mode**: không còn inline trên portfolio public — đã chuyển sang `/admin`. Portfolio chỉ đọc, không có nút sửa công khai.
 
 ### 5.3 Selected Works
 - Grid 2×3 (desktop) / 1 cột (mobile)
@@ -546,7 +555,229 @@ Phía dưới: Tabs hoặc Accordion theo kênh:
 
 ---
 
-## 6. Threads API Integration
+## 6. Admin — Sanity Studio (`/studio`)
+
+### Tại sao Sanity thay vì custom admin
+
+Lam cần edit **mọi thứ**: bio, bullets kinh nghiệm, danh sách works, kỹ năng, số liệu kênh, thậm chí CV. Build custom form cho từng field đó = tháng trời code. Sanity cho Lam giao diện CMS chuyên nghiệp sẵn, developer chỉ cần define schema.
+
+### Lam thấy gì khi vào `/studio`
+
+Giao diện Studio chia sidebar trái thành các "document type":
+
+```
+📄 Thông tin cá nhân       ← sửa tên, bio, email, tagline, profile VN/EN
+📋 Kinh nghiệm             ← list, có thể drag reorder, mỗi entry có rich text bullets
+🎨 Selected Works          ← list 6 works, add/remove/reorder tùy ý
+🛠 Kỹ năng                 ← 4 nhóm skills, add/remove tag
+🎓 Học vấn & Chứng chỉ    ← GPA, certs
+📊 Thống kê kênh           ← TikTok videos, Threads posts, số liệu
+```
+
+Lam bấm vào bất kỳ document → thấy form có label tiếng Việt → sửa → bấm **Publish** → portfolio live ngay (Next.js revalidate on-demand hoặc ISR 60s).
+
+**Không có JSON. Không có code. Không có terminal.**
+
+### Setup Sanity (bạn làm 1 lần)
+
+```bash
+# Trong folder project
+npm create sanity@latest -- --project YOUR_PROJECT_ID --dataset production --template clean
+# Hoặc tạo project mới tại sanity.io/manage
+```
+
+Thêm Lam vào project: **sanity.io/manage → Project → Members → Add member** (bằng email). Cho quyền **Editor**.
+
+Lam chỉ cần: tạo account Sanity (free, login bằng Google) → nhận invite → vào `/studio` là dùng được.
+
+### `sanity.config.ts` — cấu hình Studio
+
+```typescript
+import { defineConfig } from 'sanity'
+import { structureTool } from 'sanity/structure'
+import { visionTool } from '@sanity/vision'
+import { schemas } from './sanity/schemas'
+
+export default defineConfig({
+  name: 'qlam-portfolio',
+  title: 'Portfolio Quỳnh Lam',
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
+  dataset: 'production',
+  plugins: [
+    structureTool({
+      structure: (S) =>
+        S.list()
+          .title('Nội dung')
+          .items([
+            S.documentTypeListItem('siteContent').title('Thông tin cá nhân'),
+            S.documentTypeListItem('experience').title('Kinh nghiệm'),
+            S.documentTypeListItem('signatureWork').title('Selected Works'),
+            S.documentTypeListItem('skills').title('Kỹ năng'),
+            S.documentTypeListItem('education').title('Học vấn'),
+            S.documentTypeListItem('channelStats').title('Thống kê kênh'),
+          ])
+    }),
+    visionTool(), // GROQ query playground, hữu ích khi debug
+  ],
+  schema: { types: schemas },
+})
+```
+
+### Schemas — định nghĩa từng document
+
+#### `sanity/schemas/siteContent.ts`
+```typescript
+export const siteContent = defineType({
+  name: 'siteContent',
+  title: 'Thông tin cá nhân',
+  type: 'document',
+  fields: [
+    defineField({ name: 'name', title: 'Họ và tên', type: 'string' }),
+    defineField({ name: 'penNames', title: 'Bút danh (phân cách bởi dấu phẩy)', type: 'string' }),
+    defineField({ name: 'tagline_vi', title: 'Tagline (Tiếng Việt)', type: 'text', rows: 2 }),
+    defineField({ name: 'tagline_en', title: 'Tagline (English)', type: 'text', rows: 2 }),
+    defineField({ name: 'profile_vi', title: 'Giới thiệu bản thân (Tiếng Việt)', type: 'text', rows: 5 }),
+    defineField({ name: 'profile_en', title: 'Giới thiệu bản thân (English)', type: 'text', rows: 5 }),
+    defineField({ name: 'email', title: 'Email', type: 'string' }),
+    defineField({ name: 'phone', title: 'Số điện thoại', type: 'string' }),
+    defineField({ name: 'location', title: 'Địa điểm', type: 'string' }),
+    defineField({ name: 'highlights', title: 'Key Highlights (CV header)', type: 'array', of: [{ type: 'string' }] }),
+    defineField({ name: 'photo', title: 'Ảnh đại diện', type: 'image' }),
+  ],
+})
+```
+
+#### `sanity/schemas/experience.ts`
+```typescript
+export const experience = defineType({
+  name: 'experience',
+  title: 'Kinh nghiệm',
+  type: 'document',
+  fields: [
+    defineField({ name: 'order', title: 'Thứ tự hiển thị', type: 'number' }),
+    defineField({ name: 'role_vi', title: 'Chức vụ (Tiếng Việt)', type: 'string' }),
+    defineField({ name: 'role_en', title: 'Chức vụ (English)', type: 'string' }),
+    defineField({ name: 'org_vi', title: 'Tổ chức (Tiếng Việt)', type: 'string' }),
+    defineField({ name: 'org_en', title: 'Tổ chức (English)', type: 'string' }),
+    defineField({ name: 'period', title: 'Thời gian', type: 'string' }),
+    defineField({ name: 'bullets_vi', title: 'Mô tả công việc (Tiếng Việt)', type: 'array', of: [{ type: 'string' }] }),
+    defineField({ name: 'bullets_en', title: 'Mô tả công việc (English)', type: 'array', of: [{ type: 'string' }] }),
+    defineField({ name: 'links', title: 'Link bài viết / video', type: 'array', of: [{
+      type: 'object',
+      fields: [
+        { name: 'label', title: 'Tên hiển thị', type: 'string' },
+        { name: 'url', title: 'URL', type: 'url' },
+      ]
+    }]}),
+  ],
+  orderings: [{ title: 'Thứ tự', name: 'orderAsc', by: [{ field: 'order', direction: 'asc' }] }],
+})
+```
+
+#### `sanity/schemas/channelStats.ts`
+```typescript
+// Schema này cho phép Lam sửa số liệu kênh + thêm/xóa video/post
+export const channelStats = defineType({
+  name: 'channelStats',
+  title: 'Thống kê kênh',
+  type: 'document',
+  fields: [
+    defineField({ name: 'lastUpdated', title: 'Cập nhật lúc', type: 'datetime' }),
+    defineField({
+      name: 'tiktok',
+      title: 'TikTok @panorama.pvt',
+      type: 'object',
+      fields: [
+        { name: 'totalViews', title: 'Tổng lượt xem', type: 'number' },
+        { name: 'totalVideos', title: 'Tổng số video', type: 'number' },
+        { name: 'videos', title: 'Danh sách video', type: 'array', of: [{
+          type: 'object',
+          fields: [
+            { name: 'title', title: 'Tên video', type: 'string' },
+            { name: 'views', title: 'Lượt xem', type: 'number' },
+            { name: 'likes', title: 'Lượt thích', type: 'number' },
+            { name: 'url', title: 'Link TikTok', type: 'url' },
+          ]
+        }]}
+      ]
+    }),
+    defineField({
+      name: 'threads_queenlam',
+      title: 'Threads @ttqueenlam',
+      type: 'object',
+      fields: [
+        { name: 'posts', title: 'Danh sách bài', type: 'array', of: [{
+          type: 'object',
+          fields: [
+            { name: 'title', title: 'Tên / mô tả bài', type: 'string' },
+            { name: 'views', title: 'Lượt xem', type: 'number' },
+            { name: 'likes', title: 'Lượt thích', type: 'number' },
+            { name: 'comments', title: 'Bình luận', type: 'number' },
+            { name: 'reposts', title: 'Repost', type: 'number' },
+            { name: 'url', title: 'Link bài', type: 'url' },
+          ]
+        }]}
+      ]
+    }),
+    defineField({
+      name: 'threads_finding20s',
+      title: 'Threads @finding20s',
+      type: 'object',
+      // tương tự threads_queenlam
+    }),
+    defineField({
+      name: 'uit',
+      title: 'Bài viết UIT',
+      type: 'object',
+      fields: [
+        { name: 'totalArticles', title: 'Tổng bài đã đăng', type: 'number' },
+        { name: 'byYear', title: 'Số bài theo năm', type: 'array', of: [{
+          type: 'object',
+          fields: [
+            { name: 'year', title: 'Năm', type: 'string' },
+            { name: 'count', title: 'Số bài', type: 'number' },
+          ]
+        }]}
+      ]
+    }),
+  ]
+})
+```
+
+> Schemas còn lại (`signatureWork`, `skills`, `education`) tương tự — build theo cùng pattern. Xem `data/content.json` để biết đầy đủ fields cần define.
+
+### `sanity/lib/queries.ts` — GROQ queries
+
+```typescript
+export const SITE_CONTENT_QUERY = `*[_type == "siteContent"][0]`
+export const EXPERIENCE_QUERY = `*[_type == "experience"] | order(order asc)`
+export const WORKS_QUERY = `*[_type == "signatureWork"] | order(order asc)`
+export const STATS_QUERY = `*[_type == "channelStats"][0]`
+export const SKILLS_QUERY = `*[_type == "skills"][0]`
+export const EDUCATION_QUERY = `*[_type == "education"][0]`
+```
+
+### Fetch data trong Next.js components
+
+```typescript
+// app/page.tsx — Server Component, fetch trực tiếp
+import { client } from '@/sanity/lib/client'
+import { SITE_CONTENT_QUERY, EXPERIENCE_QUERY } from '@/sanity/lib/queries'
+
+export default async function Home() {
+  const [siteContent, experiences] = await Promise.all([
+    client.fetch(SITE_CONTENT_QUERY),
+    client.fetch(EXPERIENCE_QUERY),
+  ])
+  // ...
+}
+```
+
+**Revalidation**: dùng `next: { revalidate: 60 }` trong fetch options → portfolio tự refresh tối đa 60 giây sau khi Lam bấm Publish. Hoặc setup Sanity webhook → Next.js on-demand revalidation (instant).
+
+---
+
+## 7. Threads API Integration
 
 ### Setup Flow
 
@@ -561,14 +792,18 @@ Phía dưới: Tabs hoặc Accordion theo kênh:
 ### Environment Variables (.env.local)
 
 ```bash
+# Sanity
+NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id   # lấy từ sanity.io/manage
+NEXT_PUBLIC_SANITY_DATASET=production
+SANITY_API_TOKEN=your_token                      # Settings → API → Add token (Editor role)
+
 # Threads API
 THREADS_APP_ID=your_app_id
 THREADS_APP_SECRET=your_app_secret
-THREADS_ACCESS_TOKEN=your_long_lived_token
-THREADS_USER_ID=your_threads_user_id
-
-# Admin (cho Edit Mode Tầng 1, optional)
-ADMIN_SECRET=simple_password_for_edit_mode
+THREADS_ACCESS_TOKEN_QUEENLAM=your_token         # token của @ttqueenlam
+THREADS_ACCESS_TOKEN_FINDING20S=your_token       # token của @finding20s
+THREADS_USER_ID_QUEENLAM=your_user_id
+THREADS_USER_ID_FINDING20S=your_user_id
 ```
 
 ### `/api/threads-sync/route.ts`
@@ -596,7 +831,7 @@ GET https://graph.threads.net/v1.0/{media-id}/insights
 
 ---
 
-## 7. CV Generation
+## 8. CV Generation
 
 CV được làm ngoài Next.js (không cần dynamic render). Cách làm đề xuất:
 
@@ -608,91 +843,115 @@ CV content: lấy từ `data/content.json`, không hardcode thẳng vào templat
 
 ---
 
-## 8. Deploy Checklist
+## 9. Deploy Checklist
 
 ```bash
 # 1. Init project
 npx create-next-app@latest quynhlam-portfolio --typescript --tailwind --app
 
 # 2. Cài dependencies
-npm install framer-motion recharts @types/node
+npm install next-sanity @sanity/vision @sanity/image-url sanity
+npm install framer-motion recharts
+npm install -D @types/node
 
-# 3. Setup env
+# 3. Tạo Sanity project
+npx sanity@latest init
+# → chọn "Create new project" → tên: qlam-portfolio → dataset: production → template: clean
+
+# 4. Setup env
 cp .env.example .env.local
-# → điền Threads token vào .env.local
+# → điền NEXT_PUBLIC_SANITY_PROJECT_ID, SANITY_API_TOKEN, Threads tokens
 
-# 4. Test local
+# 5. Import seed data vào Sanity (chạy 1 lần)
+# Dùng Sanity CLI hoặc import thủ công qua Studio
+
+# 6. Test local
 npm run dev
+# Portfolio: localhost:3000
+# Studio:    localhost:3000/studio
 
-# 5. Push GitHub → import vào vercel.com → Add env vars → Deploy
+# 7. Thêm Lam vào Sanity project
+# sanity.io/manage → project → Members → Add → email của Lam → role: Editor
+
+# 8. Push GitHub → import vào vercel.com → Add env vars → Deploy
 ```
 
-**Vercel env vars cần add**:
-- `THREADS_APP_ID`
-- `THREADS_APP_SECRET`
-- `THREADS_ACCESS_TOKEN`
-- `THREADS_USER_ID`
+**Vercel env vars cần add:**
+- `NEXT_PUBLIC_SANITY_PROJECT_ID`
+- `NEXT_PUBLIC_SANITY_DATASET`
+- `SANITY_API_TOKEN`
+- `THREADS_APP_ID`, `THREADS_APP_SECRET`
+- `THREADS_ACCESS_TOKEN_QUEENLAM`, `THREADS_USER_ID_QUEENLAM`
+- `THREADS_ACCESS_TOKEN_FINDING20S`, `THREADS_USER_ID_FINDING20S`
+
+**Sau khi deploy**, vào Sanity project settings → API → **CORS Origins** → thêm domain Vercel (`https://quynhlam.vercel.app`). Không làm bước này thì Studio trên production sẽ bị lỗi CORS.
 
 ---
 
-## 9. Rules cho Claude Code
+## 10. Rules cho Claude Code
 
 1. **Luôn đọc CLAUDE.md đầu tiên** trong mỗi session mới.
-2. **Content không hardcode** trong component — luôn đọc từ `data/*.json`.
-3. **Màu sắc qua Tailwind config** — define MoMo palette trong `tailwind.config.js` dưới `extend.colors.momo.*`, dùng class `text-momo-deep`, `bg-momo-light` v.v. Không dùng hex inline.
+2. **Mọi content fetch từ Sanity** — không hardcode text trong component, không import `data/*.json` trong runtime code. `data/*.json` chỉ dùng để seed Sanity lần đầu.
+3. **Màu sắc qua Tailwind config** — define MoMo palette trong `tailwind.config.js`, dùng class `text-momo-deep` v.v. Không dùng hex inline.
 4. **Mobile-first** — mọi layout đều responsive, test trên 375px trước.
-5. **Không over-engineer** — Lam là người dùng cuối, UI phải tự giải thích được (self-explanatory).
-6. **Placeholder rõ ràng** — mọi field `PLACEHOLDER_*` trong content.json phải hiển thị text "PLACEHOLDER" có màu đỏ nhạt trong dev mode để dễ tìm.
-7. **Số liệu format đẹp** — 311400 → "311.4K", 2000 → "~2.000", dùng hàm trong `lib/utils.ts`.
-8. **Performance** — hình ảnh qua `next/image`, font chỉ load weights cần thiết (400, 500, 600, 700).
-9. **Stats dashboard là feature ưu tiên** — làm StatsBoard trước, các section khác sau.
-10. **Không xóa data** trong `stats.json` hay `content.json` khi refactor — đây là nguồn dữ liệu gốc.
+5. **GROQ queries tập trung trong `sanity/lib/queries.ts`** — không viết inline query trong component.
+6. **Revalidation đúng cách** — dùng `{ next: { revalidate: 60 } }` hoặc on-demand revalidation với Sanity webhook. Không dùng `cache: 'no-store'` vì sẽ làm chậm portfolio.
+7. **Số liệu format đẹp** — 311400 → "311.4K", dùng `lib/utils.ts`. Không format inline.
+8. **Schema label bằng tiếng Việt** — field `title` trong Sanity schema phải là tiếng Việt, rõ ràng cho Lam đọc. Không để tên kỹ thuật như `bullets_vi`.
+9. **Performance** — hình ảnh qua `next/image` + Sanity image CDN (`urlFor()`), font chỉ load weights cần thiết.
+10. **Không xóa schema field** khi refactor — xóa field Sanity mà không migrate data sẽ mất nội dung Lam đã nhập.
 
 ---
 
-## 10. Tiến độ (gợi ý build order)
+## 11. Tiến độ (gợi ý build order)
 
 ```
-Phase 1 — Foundation
+Phase 1 — Foundation + Sanity Setup
   [x] CLAUDE.md ← đang ở đây
-  [ ] create-next-app + tailwind setup + font
-  [ ] tailwind.config.js với MoMo palette
-  [ ] data/content.json + data/stats.json
-  [ ] lib/utils.ts (formatNumber, formatDate)
+  [ ] create-next-app + tailwind setup + font + MoMo palette
+  [ ] npx sanity init → tạo project, chọn clean template
+  [ ] sanity.config.ts
+  [ ] Viết toàn bộ schemas (siteContent, experience, signatureWork, skills, education, channelStats)
+  [ ] sanity/lib/client.ts + queries.ts + utils.ts
+  [ ] Import seed data từ data/content.json + data/stats.json vào Sanity Studio
+  [ ] Test: Studio tại localhost:3000/studio, sửa 1 field → fetch được từ Next.js
 
-Phase 2 — Core Sections
+Phase 2 — Portfolio Public (fetch từ Sanity)
   [ ] layout.tsx (metadata, font)
   [ ] Hero section
-  [ ] StatsBoard — Tầng 1 (hiển thị + Edit Mode localStorage)
+  [ ] StatsBoard (đọc channelStats từ Sanity)
   [ ] Selected Works grid
   [ ] Experience timeline
-
-Phase 3 — Polish
   [ ] Skills section
   [ ] Footer
-  [ ] Framer Motion animations
-  [ ] Mobile responsive pass
-  [ ] Open Graph meta tags + og-image
 
-Phase 4 — Threads API (Tầng 2)
+Phase 3 — Polish
+  [ ] Framer Motion animations
+  [ ] Mobile responsive pass toàn bộ
+  [ ] Open Graph meta tags + og-image
+  [ ] Sanity webhook → Next.js on-demand revalidation (instant update khi Lam Publish)
+
+Phase 4 — Threads API
   [ ] lib/threads.ts
-  [ ] /api/threads-sync/route.ts
-  [ ] SyncButton component
-  [ ] Token refresh logic + error handling
+  [ ] /api/threads-sync/route.ts (write back vào Sanity channelStats document)
+  [ ] Nút "Sync từ Threads" trong Sanity Studio (custom action hoặc hướng dẫn thủ công)
 
 Phase 5 — CV
-  [ ] cv/index.html (VN)
-  [ ] cv/index-en.html (EN)
-  [ ] Export PDF, để vào /public/cv/
+  [ ] cv/cv-vn.html (fetch từ Sanity hoặc dùng data/content.json làm nguồn)
+  [ ] cv/cv-en.html
+  [ ] Export PDF → public/cv/
   [ ] Link từ Hero section
 
-Phase 6 — Deploy
+Phase 6 — Deploy + Onboard Lam
   [ ] .env.example
-  [ ] README.md (hướng dẫn clone + setup + deploy)
-  [ ] Push GitHub + Vercel deploy
+  [ ] README.md
+  [ ] Add Lam vào Sanity project (Editor role)
+  [ ] Add CORS origin trên Sanity cho domain Vercel
+  [ ] Add env vars trên Vercel → Deploy
   [ ] Test trên thiết bị thật
+  [ ] Walk Lam qua Studio: sửa bio → Publish → thấy live trên portfolio (~5 phút)
 ```
 
 ---
 
-*Last updated: 2026-06-02 · Maintained by Oliver (friend of Quỳnh Lam)*
+*Last updated: 2026-06-03 v3 (Sanity CMS full edit) · Maintained by Oliver (friend of Quỳnh Lam)*

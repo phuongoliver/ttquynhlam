@@ -1,33 +1,37 @@
 @import "tailwindcss";
 
-/* MoMo × Minimal Modern — Design Tokens */
+/* ───────────────────────────────────────────────────────────
+   DESIGN.md — Editorial · Warm · Quiet confidence
+   Warm cream paper base, sage primary accent, clay warm pop.
+   ─────────────────────────────────────────────────────────── */
 @theme {
-  /* Primary */
-  --color-momo-deep:   #A50064;
-  --color-momo-bright: #D82D8B;
-  --color-momo-light:  #FCE4F3;
+  /* Surface — warm neutrals (~85% of page) */
+  --color-paper:       #F4EFE6;
+  --color-paper-deep:  #EBE3D5;
+  --color-card:        #FBF8F2;
+  --color-line:        #D9D0BE;
+  --color-ink:         #1F1B16;
+  --color-ink-soft:    #5C5448;
 
-  /* Neutral */
-  --color-ink:         #1A1A1A;
-  --color-ink-soft:    #4A4A4A;
-  --color-line:        #E8E8E8;
-  --color-surface:     #FAFAFA;
-
-  /* Brand */
-  --color-tiktok:      #010101;
-  --color-threads:     #000000;
+  /* Accents (~15% combined) */
+  --color-sage:        #8FA08A;
+  --color-sage-deep:   #5F7059;
+  --color-sage-tint:   #E2E5DA;
+  --color-clay:        #C97A5B;
+  --color-clay-tint:   #F1DDD2;
 
   /* Semantic page tokens */
-  --color-background:  #FFFFFF;
-  --color-foreground:  #1A1A1A;
+  --color-background:  #F4EFE6;
+  --color-foreground:  #1F1B16;
 
-  /* Font */
-  --font-sans: var(--font-be-vietnam-pro), "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
+  /* Fonts */
+  --font-sans:  var(--font-be-vietnam-pro), "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), Georgia, "Times New Roman", serif;
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #1A1A1A;
+  --background: #F4EFE6;
+  --foreground: #1F1B16;
 }
 
 html {
@@ -37,18 +41,112 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
+  font-feature-settings: "kern";
+  text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background-color: #FCE4F3;
-  color: #A50064;
+  background-color: #E2E5DA;
+  color: #5F7059;
 }
 
-/* ── Print / CV ─────────────────────────────────────────── */
+/* ── Typographic helpers (DESIGN.md §4) ─────────────────────── */
+
+.font-display {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  text-wrap: balance;
+}
+
+.font-serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-sage-deep);
+  line-height: 1.4;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  background: var(--color-sage);
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.stat-number {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 0.95;
+}
+
+.clay-under {
+  background-image: linear-gradient(var(--color-clay), var(--color-clay));
+  background-repeat: no-repeat;
+  background-size: 100% 6px;
+  background-position: 0 88%;
+}
+
+p, li {
+  text-wrap: pretty;
+}
+
+/* Warm filter on all uploaded imagery (DESIGN.md §7) */
+.warm-img {
+  filter: saturate(0.92) contrast(1.02) sepia(0.05);
+}
+
+/* Animated underline grow for text links (DESIGN.md §3.3 / §8) */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 200ms ease, color 200ms ease;
+}
+.link-underline:hover {
+  background-size: 100% 1px;
+}
+
+/* Focus ring (DESIGN.md §10) */
+*:focus-visible {
+  outline: 2px solid var(--color-sage-deep);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ── Reduced motion (DESIGN.md §8) ──────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Print / CV (DESIGN.md §6.7) ────────────────────────────── */
 @media print {
   @page {
     size: A4 portrait;
-    margin: 12mm 15mm;
+    margin: 18mm;
   }
   .no-print {
     display: none !important;
@@ -71,5 +169,12 @@ body {
   }
   .cv-no-break {
     break-inside: avoid;
+  }
+  .cv-link::after {
+    content: " (" attr(href) ")";
+    font-size: 9px;
+    color: #5C5448;
+    font-style: normal;
+    font-weight: normal;
   }
 }

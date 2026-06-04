@@ -1,35 +1,24 @@
+/* DESIGN.md §6.2 — "by the numbers" editorial stat block.
+   Transparent (no card fill); the parent draws hairline dividers.
+   Viral stats get a clay underline beneath the number. */
 type StatCardProps = {
   label: string;
   display: string;
-  rawValue: number;
   sublabel?: string;
-  isEditing?: boolean;
-  onValueChange?: (v: number) => void;
+  viral?: boolean;
 };
 
-export default function StatCard({
-  label,
-  display,
-  rawValue,
-  sublabel,
-  isEditing = false,
-  onValueChange,
-}: StatCardProps) {
+export default function StatCard({ label, display, sublabel, viral = false }: StatCardProps) {
   return (
-    <div className="bg-white rounded-2xl border border-line p-6 flex flex-col items-center text-center gap-1">
-      {isEditing && onValueChange ? (
-        <input
-          type="number"
-          value={rawValue}
-          onChange={(e) => onValueChange(Number(e.target.value))}
-          className="text-3xl sm:text-[40px] font-bold text-momo-deep w-full text-center border-b-2 border-momo-deep focus:outline-none bg-transparent leading-none"
-        />
-      ) : (
-        <p className="text-3xl sm:text-[40px] font-bold text-momo-deep leading-none">{display}</p>
-      )}
-      <p className="text-sm text-ink-soft mt-1 font-medium">{label}</p>
+    <div className="flex flex-col gap-2.5 px-3 sm:px-4 xl:px-6 py-6 sm:py-8">
+      <p className="eyebrow">{label}</p>
+      <p className="stat-number text-[clamp(32px,3.8vw,64px)] text-ink">
+        <span className={viral ? "clay-under" : undefined}>
+          {display}
+        </span>
+      </p>
       {sublabel && (
-        <p className="text-xs text-ink-soft line-clamp-1">{sublabel}</p>
+        <p className="text-[13px] text-ink-soft leading-snug line-clamp-2">{sublabel}</p>
       )}
     </div>
   );

@@ -40,6 +40,6 @@ export function formatDate(dateStr: string): string {
 }
 
 /** Returns true if a string is a PLACEHOLDER_* value from content.json. */
-export function isPlaceholder(value: string): boolean {
-  return value.startsWith("PLACEHOLDER_");
+export function isPlaceholder(value: string | undefined | null): boolean {
+  return typeof value === "string" && value.startsWith("PLACEHOLDER_");
 }

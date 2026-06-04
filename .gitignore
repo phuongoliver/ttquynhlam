@@ -43,3 +43,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# AI instructions & session logs
+CLAUDE.md
+DESIGN.md
+experiment_log.md
+
+# Design system files
+design-system.html
+*Design System.html
+
+# Private CV folders (containing personal contact info)
+/cv/
+/public/cv/

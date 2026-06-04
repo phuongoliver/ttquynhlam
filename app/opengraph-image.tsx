@@ -8,7 +8,7 @@ export default function Image() {
     (
       <div
         style={{
-          background: "#FFFFFF",
+          background: "#F4EFE6",
           width: "100%",
           height: "100%",
           display: "flex",
@@ -16,7 +16,7 @@ export default function Image() {
           alignItems: "flex-start",
           justifyContent: "center",
           padding: "80px 88px",
-          fontFamily: "sans-serif",
+          fontFamily: "serif",
           position: "relative",
         }}
       >
@@ -28,7 +28,7 @@ export default function Image() {
             left: 0,
             right: 0,
             height: 8,
-            background: "#A50064",
+            background: "#8FA08A",
           }}
         />
 
@@ -37,7 +37,8 @@ export default function Image() {
           style={{
             fontSize: 68,
             fontWeight: 700,
-            color: "#A50064",
+            fontStyle: "italic",
+            color: "#1F1B16",
             margin: 0,
             lineHeight: 1.1,
           }}
@@ -49,9 +50,10 @@ export default function Image() {
         <p
           style={{
             fontSize: 28,
-            color: "#4A4A4A",
+            color: "#5C5448",
             margin: "16px 0 0",
             fontWeight: 400,
+            fontFamily: "sans-serif",
           }}
         >
           Creative Copywriter Intern/Fresher · Báo chí CLC, ĐHQG-HCM
@@ -78,11 +80,11 @@ export default function Image() {
               style={{ display: "flex", flexDirection: "column", gap: 4 }}
             >
               <span
-                style={{ fontSize: 40, fontWeight: 700, color: "#A50064" }}
+                style={{ fontSize: 44, fontWeight: 700, fontStyle: "italic", color: "#1F1B16" }}
               >
                 {num}
               </span>
-              <span style={{ fontSize: 18, color: "#4A4A4A" }}>{label}</span>
+              <span style={{ fontSize: 18, color: "#5C5448", fontFamily: "sans-serif" }}>{label}</span>
             </div>
           ))}
         </div>
@@ -94,8 +96,9 @@ export default function Image() {
             bottom: 48,
             left: 88,
             fontSize: 18,
-            color: "#9CA3AF",
+            color: "#5C5448",
             margin: 0,
+            fontFamily: "sans-serif",
           }}
         >
           quynhlam.vercel.app
@@ -109,7 +112,7 @@ export default function Image() {
             top: 0,
             bottom: 0,
             width: 8,
-            background: "#FCE4F3",
+            background: "#C97A5B",
           }}
         />
       </div>

@@ -1,7 +1,11 @@
 {
   "personal": {
     "name": "Trịnh Thanh Quỳnh Lam",
-    "penNames": ["Quỳnh Lam", "Đông Xanh", "Chung Lan"],
+    "penNames": [
+      "Quỳnh Lam",
+      "Đông Xanh",
+      "Chung Lan"
+    ],
     "major": "Báo chí — Chương trình Chất lượng cao",
     "school": "Trường ĐH KHXH&NV, ĐHQG-HCM",
     "schoolShort": "USSH – VNUHCM",
@@ -9,11 +13,9 @@
     "gpaSemesters": 5,
     "ielts": "6.0 (Overall)",
     "location": "TP. Hồ Chí Minh",
-    "email": "PLACEHOLDER_EMAIL",
-    "phone": "PLACEHOLDER_PHONE",
-    "linkedin": "PLACEHOLDER_LINKEDIN",
-    "github": "PLACEHOLDER_GITHUB",
-    "portfolioUrl": "PLACEHOLDER_VERCEL_URL"
+    "email": "quynhlamtrinhthanh@gmail.com",
+    "phone": "0972371699",
+    "portfolioUrl": ""
   },
   "highlights": [
     "~2.000 tin/bài chấp bút (2023–nay)",
@@ -45,8 +47,14 @@
         "Copy-edited and standardized tone & voice for UIT Admissions fanpage — balancing GenZ language with academic standards."
       ],
       "links": [
-        { "label": "Dionysus — Tình bạn kết tinh từ nghiên cứu khoa học", "url": "https://www.uit.edu.vn/dionysus-tinh-ban-ket-tinh-tu-nghien-cuu-khoa-hoc" },
-        { "label": "'Bóng hồng' tài năng ngành KHMT", "url": "https://www.uit.edu.vn/bong-hong-tai-nang-nganh-khoa-hoc-may-tinh" }
+        {
+          "label": "Dionysus — Tình bạn kết tinh từ nghiên cứu khoa học",
+          "url": "https://www.uit.edu.vn/dionysus-tinh-ban-ket-tinh-tu-nghien-cuu-khoa-hoc"
+        },
+        {
+          "label": "'Bóng hồng' tài năng ngành KHMT",
+          "url": "https://www.uit.edu.vn/bong-hong-tai-nang-nganh-khoa-hoc-may-tinh"
+        }
       ]
     },
     {
@@ -65,7 +73,10 @@
         "Feature: 'Students Stun with Self-Produced All-Star Concert' — capturing GenZ's ambition to dream and execute big."
       ],
       "links": [
-        { "label": "Bài báo điện tử Tuổi Trẻ", "url": "https://tuoitre.vn/bat-ngo-hoc-sinh-tu-to-chuc-dem-nhac-toan-sao-20241128095757422.htm" }
+        {
+          "label": "Bài báo điện tử Tuổi Trẻ",
+          "url": "https://tuoitre.vn/bat-ngo-hoc-sinh-tu-to-chuc-dem-nhac-toan-sao-20241128095757422.htm"
+        }
       ]
     },
     {
@@ -231,8 +242,7 @@
     ],
     "languages": [
       "Tiếng Việt — bản ngữ",
-      "Tiếng Anh — IELTS 6.0 (Overall)",
-      "Tiếng Trung — đang học"
+      "Tiếng Anh — IELTS 6.0 (Overall)"
     ]
   },
   "education": {
@@ -242,7 +252,10 @@
     "major_en": "Journalism — High-Quality Program, Faculty of Journalism and Communication",
     "period": "2023 – 2027 (dự kiến)",
     "gpa": "8.61/10",
-    "certs": ["IELTS 6.0 Overall", "MOS Associate — Word, Excel, PowerPoint 2019"]
+    "certs": [
+      "IELTS 6.0 Overall",
+      "MOS Associate — Word, Excel, PowerPoint 2019"
+    ]
   },
   "interests": [
     "Lưu mọi tagline / TVC / campaign đáng nhớ vào ghi chú riêng để mổ xẻ vì sao nó hay",

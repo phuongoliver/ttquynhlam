@@ -1,55 +1,47 @@
 "use client";
 import { motion } from "framer-motion";
-import content from "@/data/content.json";
-import stats from "@/data/stats.json";
+import type { SignatureWork, StatsData } from "@/lib/types";
 import { WorkCard } from "@/components/ui/WorkCard";
+import EyebrowLabel from "@/components/ui/EyebrowLabel";
+import SectionBand from "@/components/layout/SectionBand";
 
-const VIEW_COUNTS: Record<string, number> = {
-  sw4: stats.tiktok_panorama.topVideo.views,
-  sw5: stats.threads_finding20s.topPost.views,
-};
+type Props = { works: SignatureWork[]; stats: StatsData };
 
-export default function SelectedWorks() {
+export default function SelectedWorks({ works, stats }: Props) {
+  const viewCounts: Record<string, number> = {
+    sw4: stats.tiktok_panorama.topVideo.views,
+    sw5: stats.threads_finding20s.topPost.views,
+  };
+
   return (
-    <section id="works" className="py-20 px-6 bg-white">
-      <div className="max-w-5xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.45 }}
-          className="mb-10"
-        >
-          <h2 className="text-[32px] font-semibold text-ink mb-3">
-            Selected Works
-          </h2>
-          <div className="w-12 h-1 bg-momo-deep rounded-full" />
-        </motion.div>
+    <SectionBand id="works" tone="paper">
+      <EyebrowLabel>Selected work · 2024–2026</EyebrowLabel>
+      <h2 className="font-display text-[clamp(28px,4.5vw,56px)] text-ink mt-5 mb-12 max-w-[20ch]">
+        Những bài đáng để đọc lại.
+      </h2>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {content.signatureWorks.map((work, i) => (
-            <motion.div
-              key={work.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.07, duration: 0.4 }}
-              className="flex"
-            >
-              <WorkCard
-                id={work.id}
-                title={work.title}
-                type={work.type_vi}
-                hook={work.hook_vi}
-                viewCount={VIEW_COUNTS[work.id]}
-                url={work.url}
-              />
-            </motion.div>
-          ))}
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+        {works.map((work, i) => (
+          <motion.div
+            key={work._id}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ delay: (i % 3) * 0.08, duration: 0.5 }}
+            className={`flex ${i % 3 === 1 ? "lg:mt-10" : ""}`}
+          >
+            <WorkCard
+              id={work.workId}
+              title={work.title}
+              type={work.type_vi}
+              hook={work.hook_vi}
+              viewCount={viewCounts[work.workId]}
+              url={work.url}
+              image={work.image}
+            />
+          </motion.div>
+        ))}
       </div>
-    </section>
+    </SectionBand>
   );
 }

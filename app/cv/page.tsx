@@ -14,14 +14,14 @@ export default function CVPageVN() {
       <nav className="no-print sticky top-0 z-40 bg-white border-b border-line px-6 py-3 flex items-center justify-between">
         <Link
           href="/"
-          className="text-sm text-ink-soft hover:text-momo-deep transition-colors"
+          className="text-sm text-ink-soft hover:text-sage-deep transition-colors"
         >
           ← Portfolio
         </Link>
         <div className="flex items-center gap-3">
           <Link
             href="/cv/en"
-            className="text-sm text-ink-soft hover:text-momo-deep transition-colors"
+            className="text-sm text-ink-soft hover:text-sage-deep transition-colors"
           >
             🇬🇧 EN
           </Link>
